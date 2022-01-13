@@ -1,3 +1,10 @@
+"""
+ @author Zhenyu Jiang
+ @email stevetod98@gmail.com
+ @date 2022-01-12
+ @desc Point cloud utilities
+"""
+
 import numpy as np
 import open3d as o3d
 

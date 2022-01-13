@@ -2,7 +2,7 @@
  @author Zhenyu Jiang
  @email stevetod98@gmail.com
  @date 2022-01-11
- @desc Point cloud visualization utils
+ @desc Point cloud interactive visualization utils
 """
 
 import matplotlib.pyplot as plt
@@ -51,10 +51,8 @@ def visualize_3d_point_cloud_mpl(
         matplotlib.figure.Figure: axis or figure where the point cloud is plotted on.
     """
 
+    assert_array_shape(xyz)
     # extract x y z from input points
-    if xyz.shape[1] != 3:
-        raise ValueError(f"Input point cloud {xyz.shape} is not of shape N*3!")
-
     x = xyz.T[0]
     y = xyz.T[1]
     z = xyz.T[2]

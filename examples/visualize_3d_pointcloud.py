@@ -14,7 +14,11 @@ def main():
         "-t", "--tool", type=str, choices=["o3d", "mpl"], help="Which tool for visualization."
     )
     parser.add_argument(
-        "-i", "--input", type=str, default="../data/fragment.pcd", help="Input point cloud path."
+        "-i",
+        "--input",
+        type=str,
+        default="../data/pointcloud_color.pcd",
+        help="Input point cloud path.",
     )
     parser.add_argument("--norm", action="store_true", help="Normalize data.")
     args = parser.parse_args()

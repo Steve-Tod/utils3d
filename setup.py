@@ -7,13 +7,6 @@ setup(
     author="Zhenyu Jiang",
     author_email="stevetod98@gmail.com",
     url="https://github.com/Steve-Tod/utils3d",  # replace with your own github project link
-    install_requires=[
-        "numpy",
-        "matplotlib",
-        "pillow",
-        "trimesh",
-        "open3d",
-        "scipy",
-    ],
+    install_requires=["numpy", "matplotlib", "pillow", "trimesh", "open3d", "scipy", "pyrender"],
     packages=find_packages(),
 )
