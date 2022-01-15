@@ -4,28 +4,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from utils3d.mesh.io import read_mesh
-from utils3d.utils.pyrender import PyRenderer, get_pose
+from utils3d.utils.pyrender import PyRenderer
+from utils3d.utils.utils import get_pose
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-t", "--tool", type=str, choices=["py", "nv"], help="Which tool for rendering."
-    )
-    parser.add_argument(
         "-i",
         "--input",
         type=str,
         default="../data/Squirrel_visual.obj",
-        help="Input point cloud path.",
+        help="Input mesh path.",
     )
-    parser.add_argument("--norm", action="store_true", help="Normalize data.")
     args = parser.parse_args()
 
-    if args.tool == "py":
-        renderer = PyRenderer()
-    else:
-        pass
+    renderer = PyRenderer()
 
     mesh = read_mesh(args.input)
     center = mesh.bounds.mean(0)

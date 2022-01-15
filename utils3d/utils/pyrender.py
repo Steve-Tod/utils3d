@@ -5,34 +5,15 @@
  @desc Pyrender utils
 """
 import os
+from turtle import color
 
 os.environ["PYOPENGL_PLATFORM"] = "egl"
 import numpy as np
 import pyrender
 import trimesh
-from PIL import Image
 
 from utils3d.utils.transform import Rotation, Transform
-
-
-def get_pose(distance, center=np.zeros(3), ax=0, ay=0, az=0):
-    """generate camera pose from distance, center and euler angles
-
-    Args:
-        distance (float): distance from camera to center
-        center (np.ndarray, optional): the look at center. Defaults to np.zeros(3).
-        ax (float, optional): euler angle x. Defaults to 0.
-        ay (float, optional): euler angle around y axis. Defaults to 0.
-        az (float, optional): euler angle around z axis. Defaults to 0.
-
-    Returns:
-        np.ndarray: camera pose of 4*4 numpy array
-    """
-    rotation = Rotation.from_euler("xyz", (ax, ay, az))
-    vec = np.array([0, 0, distance])
-    translation = rotation.as_matrix().dot(vec) + center
-    camera_pose = Transform(rotation, translation).as_matrix()
-    return camera_pose
+from utils3d.utils.utils import get_pose
 
 
 class PyRenderer:
@@ -62,7 +43,7 @@ class PyRenderer:
             light_pose (np.ndarray): light transformation
 
         Returns:
-            PIL.Image: rendered rgb image
+            np.ndarray: rendered rgb image
             np.ndarray: rendered depth image
         """
         if isinstance(scene_or_mesh, trimesh.Trimesh):
@@ -76,8 +57,8 @@ class PyRenderer:
             r_scene.add(o_mesh)
         r_scene.add(self.camera, name="camera", pose=camera_pose)
         r_scene.add(self.light, name="light", pose=light_pose)
-        color_img, depth = self.renderer.render(r_scene)
-        return Image.fromarray(color_img), depth
+        rgb, depth = self.renderer.render(r_scene)
+        return rgb, depth
 
     def render_pointcloud(
         self, xyz, camera_pose, light_pose, radius=0.005, colors=[102, 102, 102, 102]
@@ -92,7 +73,7 @@ class PyRenderer:
             colors (list or np.ndarray, optional): colors of the points. Defaults to [102, 102, 102, 102].
 
         Returns:
-            PIL.Image: rendered rgb image
+            np.ndarray: rendered rgb image
             np.ndarray: rendered depth image
         """
         r_scene = pyrender.Scene()
@@ -108,5 +89,5 @@ class PyRenderer:
         r_scene.add(o_mesh)
         r_scene.add(self.camera, name="camera", pose=camera_pose)
         r_scene.add(self.light, name="light", pose=light_pose)
-        color_img, depth = self.renderer.render(r_scene)
-        return Image.fromarray(color_img), depth
+        rgb, depth = self.renderer.render(r_scene)
+        return rgb, depth
