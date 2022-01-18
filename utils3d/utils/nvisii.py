@@ -34,12 +34,13 @@ class NViSIIRenderer:
         self.camera_kwargs = camera_kwargs
         self.light_kwargs = light_kwargs
 
-    def reset(self, camera_pose, light_pose):
+    def reset(self, camera_pose, light_pose, dome_light_color=(1.0, 1.0, 1.0)):
         """clear scenen, reset camera and light
 
         Args:
             camera_pose (np.ndarray): camera pose, 4*4
             light_pose (np.ndarray): light pose 4*4
+            dome_light_color (tuple, optional): dome light color. Defaults to (1.0, 1.0, 1.0)
         """
         nvisii.clear_all()
         # Camera
@@ -61,6 +62,9 @@ class NViSIIRenderer:
             light=nvisii.light.create("light_1"),
         )
         self.set_light(light_pose, **self.light_kwargs)
+
+        # Dome color
+        nvisii.set_dome_light_color(dome_light_color)
 
         # Floor
         # self.floor = nvisii.entity.create(
