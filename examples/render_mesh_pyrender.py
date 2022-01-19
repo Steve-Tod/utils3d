@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from utils3d.mesh.io import read_mesh
-from utils3d.utils.pyrender import PyRenderer
+from utils3d.render.pyrender import PyRenderer
 from utils3d.utils.utils import get_pose
 
 

@@ -52,7 +52,7 @@ def read_pointcloud(path):
     return xyz, color
 
 
-def save_pointcloud(xyz, path, color=None):
+def write_pointcloud(xyz, path, color=None):
     """save point cloud
 
     Args:

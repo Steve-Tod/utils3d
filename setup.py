@@ -15,7 +15,7 @@ setup(
         "open3d",
         "scipy",
         "pyrender",
-        "nvisii",
+        "pytest",
     ],
     packages=find_packages(),
 )
