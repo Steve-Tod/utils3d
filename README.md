@@ -25,3 +25,12 @@ Install pre-commit to automatically format the code when commit.
 pip install pre-commit
 pre-commit install
 ```
+
+Install extra package for:
+
+- Photo realistic rendering (`utils3d.render.nvisii`)
+
+```
+pip install -r requirements-extra.txt
+
+```

@@ -1,3 +1,9 @@
+"""
+ @author Zhenyu Jiang
+ @email stevetod98@gmail.com
+ @date 2022-01-12
+ @desc Mesh utils
+"""
 import trimesh
 
 

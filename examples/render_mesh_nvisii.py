@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from utils3d.mesh.io import read_mesh
-from utils3d.utils.nvisii import NViSIIRenderer
+from utils3d.render.nvisii import NViSIIRenderer
 from utils3d.utils.utils import get_pose
 
 
