@@ -77,16 +77,26 @@ class PyRenderer:
             np.ndarray: rendered depth image
         """
         r_scene = pyrender.Scene()
-        sm = trimesh.creation.uv_sphere(radius=radius)
-        if colors is None:
-            sm.visual.vertex_colors = [0.4, 0.4, 0.4, 0.8]
-        else:
-            sm.visual.vertex_colors = colors
         tfs = np.tile(np.eye(4), (len(xyz), 1, 1))
         tfs[:, :3, 3] = xyz
-        o_mesh = pyrender.Mesh.from_trimesh(sm, poses=tfs)
+        if colors is None or isinstance(colors, list) or len(colors.shape) == 1:
+            # one color for all points
+            sm = trimesh.creation.uv_sphere(radius=radius)
+            if colors is None:
+                sm.visual.vertex_colors = [0.4, 0.4, 0.4, 0.8]
+            else:
+                sm.visual.vertex_colors = colors
+            o_mesh = pyrender.Mesh.from_trimesh(sm, poses=tfs)
 
-        r_scene.add(o_mesh)
+            r_scene.add(o_mesh)
+        else:
+            # different color for different pints
+            for idx, tf in enumerate(tfs):
+                sm = trimesh.creation.uv_sphere(radius=radius)
+                sm.visual.vertex_colors = colors[idx]
+                o_mesh = pyrender.Mesh.from_trimesh(sm, poses=tf)
+                r_scene.add(o_mesh)
+            
         r_scene.add(self.camera, name="camera", pose=camera_pose)
         r_scene.add(self.light, name="light", pose=light_pose)
         rgb, depth = self.renderer.render(r_scene)
