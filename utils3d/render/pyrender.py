@@ -96,7 +96,7 @@ class PyRenderer:
                 sm.visual.vertex_colors = colors[idx]
                 o_mesh = pyrender.Mesh.from_trimesh(sm, poses=tf)
                 r_scene.add(o_mesh)
-            
+
         r_scene.add(self.camera, name="camera", pose=camera_pose)
         r_scene.add(self.light, name="light", pose=light_pose)
         rgb, depth = self.renderer.render(r_scene)

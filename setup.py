@@ -16,6 +16,8 @@ setup(
         "scipy",
         "pyrender",
         "pytest",
+        "numba",
+        "scikit-image",
     ],
     packages=find_packages(),
 )
